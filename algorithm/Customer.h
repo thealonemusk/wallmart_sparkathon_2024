@@ -12,7 +12,7 @@ vector<int> Tribonacci{1, 3, 5, 9, 17, 31, 55, 81, 149, 274, 504, 927, 1705, 313
 Time start_time = Time(9, 0, 0);
 Time end_time = Time(18, 0, 0);
 
-class Patient {
+class Customer {
 public:
     int age;
     int appointment;
@@ -27,7 +27,7 @@ public:
 
     pair<Time, Time> expected_time;
 
-    static int count_patients;
+    static int count_customers;
 
     bool treated;
 
@@ -46,7 +46,7 @@ public:
         this->total_late ++;
     }
 
-    Patient() : time_arrival(Time(0)),
+    Customer() : time_arrival(Time(0)),
                 expected_time({Time(0), Time(0)}),
                 response_time(Time(0)),
                 leaving_time(Time(0)) {
@@ -61,20 +61,20 @@ public:
 
     }
 
-    Patient(const Patient &patient)
-            : time_arrival(patient.time_arrival),
-              expected_time(patient.expected_time),
-              response_time(patient.response_time),
-              leaving_time(patient.leaving_time) {
+    Customer(const Customer &customer)
+            : time_arrival(customer.time_arrival),
+              expected_time(customer.expected_time),
+              response_time(customer.response_time),
+              leaving_time(customer.leaving_time) {
 
-        this->age = patient.age;
-        this->appointment = patient.appointment;
-        this->score = patient.score;
-        this->count_late = patient.count_late;
-        this->total_late = patient.total_late;
-        this->time_consulting = patient.time_consulting;
-        this->response_time = patient.response_time;
-        this->treated = patient.treated;
+        this->age = customer.age;
+        this->appointment = customer.appointment;
+        this->score = customer.score;
+        this->count_late = customer.count_late;
+        this->total_late = customer.total_late;
+        this->time_consulting = customer.time_consulting;
+        this->response_time = customer.response_time;
+        this->treated = customer.treated;
     }
 
     void fillRandom(int i, int total_size) {
@@ -98,7 +98,7 @@ public:
         auto _arrival_time = Time(getRandomNumber(_expected_time.first.getHours(), end_time.getHours()),
                                   getRandomNumber(0, 59), 0);
 
-        this->appointment = ++Patient::count_patients;
+        this->appointment = ++Customer::count_customers;
         this->age = getRandomNumber(20, 75);
         this->expected_time.first = _expected_time.first;
         this->expected_time.second = _expected_time.second;
@@ -114,22 +114,22 @@ public:
         this->time_consulting = getRandomNumber(3 * 60, 15 * 60);
     }
 
-    Patient &operator=(const Patient &patient) = default;
+    Customer &operator=(const Customer &customer) = default;
 };
 
-std::ostream &operator<<(std::ostream &COUT, const Patient &patient) {
-    COUT << "initial order: " << patient.appointment << ' '
-         << ",score: " << patient.score << ' '
-         << ",count late : " << patient.total_late << ' '
-         << ",response time: " << patient.response_time << ' '
-         << ",time of arrival: " << patient.time_arrival << ' '
-         << ",time of leaving: " << patient.leaving_time << ' '
-         << ",consult time: " << patient.time_consulting / 60 << "m " << patient.time_consulting % 60 << "s " << ' '
-         << ",expected time: " << patient.expected_time << ' '
-         << ",treated: " << patient.treated << ' ';
+std::ostream &operator<<(std::ostream &COUT, const Customer &customer) {
+    COUT << "initial order: " << customer.appointment << ' '
+         << ",score: " << customer.score << ' '
+         << ",count late : " << customer.total_late << ' '
+         << ",response time: " << customer.response_time << ' '
+         << ",time of arrival: " << customer.time_arrival << ' '
+         << ",time of leaving: " << customer.leaving_time << ' '
+         << ",consult time: " << customer.time_consulting / 60 << "m " << customer.time_consulting % 60 << "s " << ' '
+         << ",expected time: " << customer.expected_time << ' '
+         << ",treated: " << customer.treated << ' ';
 
     return COUT;
 }
 
-int Patient::count_patients = 0;
+int Customer::count_customers = 0;
 
